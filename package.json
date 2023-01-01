@@ -1,7 +1,7 @@
 {
   "name": "qr-menu",
   "version": "0.1.0",
-  "homepage": "https://ugurkiymetli.github.io/qr-menu/",
+  "homepage": "https://ugurkiymetli.github.io/qr-menu/#",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
