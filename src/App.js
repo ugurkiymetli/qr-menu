@@ -2,16 +2,16 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import Navbar from './components/Navbar/Navbar';
-import Main from './containers/Main/Main';
-import RestaurantDetail from './containers/RestaurantDetail/RestaurantDetail';
+import routes from './utils/routes';
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="restaurants/:id" element={<RestaurantDetail />} />
+        {routes.map(({ path, element }) => (
+          <Route key={path} path={path} element={element} />
+        ))}
       </Routes>
     </>
   );
