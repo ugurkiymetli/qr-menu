@@ -1,20 +1,19 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router';
+import Navbar from './components/Navbar/Navbar';
+import Main from './containers/Main/Main';
+import RestaurantDetail from './containers/RestaurantDetail/RestaurantDetail';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to
-          <code className="App-link"> QR Menu </code>
-          App!.
-        </p>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="restaurants/:id" element={<RestaurantDetail />} />
+      </Routes>
+    </>
   );
 }
 
