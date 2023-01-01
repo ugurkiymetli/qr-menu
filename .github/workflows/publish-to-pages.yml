@@ -1,0 +1,30 @@
+name: Deploy to external GitHub repo for pages publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and Push
+    steps:
+      - name: git-checkout
+        uses: actions/checkout@v2
+
+      - name: Install all dependencies
+        run: npm install
+
+      - name: Build
+        run: CI=false npm run build
+
+      - name: Deploy to external repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_GITHUB_TOKEN }}
+        with:
+          source-directory: 'build'
+          destination-github-username: 'ugurkiymetli'
+          destination-repository-name: 'qr-menu'
+          target-branch: pages
