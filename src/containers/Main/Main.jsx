@@ -3,10 +3,10 @@ import './Main.css';
 
 function Main() {
   return (
-    <div className="Main">
+    <div className="main">
       <p>
         Welcome to
-        <code className="Main-link"> QR Menu </code>
+        <code className="main-link"> QR Menu </code>
         App!.
       </p>
     </div>
