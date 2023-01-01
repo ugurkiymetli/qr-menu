@@ -9,7 +9,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welcome to <code>QR Menu</code> App!.
+          Welcome to
+          <code className="App-link"> QR Menu </code>
+          App!.
         </p>
       </header>
     </div>
