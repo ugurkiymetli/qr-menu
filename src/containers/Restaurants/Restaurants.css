@@ -10,6 +10,7 @@
   color: azure;
 }
 ul {
+  padding: 0px;
   list-style-type: none;
   font-size: calc(10px + 1vmin);
 }

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect } from 'react';
+import Loading from '../../components/Loading/Loading';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
 import './Restaurants.css';
 
@@ -19,7 +20,7 @@ function Restaurants() {
     refetch();
   }, []);
 
-  if (isLoading) return 'Loading';
+  if (isLoading) return <Loading />;
   if (error) return `An error has occurred: ${error.message}`;
 
   return (
