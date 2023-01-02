@@ -1,0 +1,9 @@
+a {
+  all: unset;
+}
+
+.card-root {
+  border: 1px #333 solid;
+  border-radius: 2px;
+  padding: 1rem;
+}
