@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect } from 'react';
@@ -6,7 +7,12 @@ import RestaurantCard from '../../components/Restaurant/RestaurantCard';
 import './Restaurants.css';
 
 function Restaurants() {
-  const { isLoading, error, data, refetch } = useQuery({
+  const {
+    isLoading,
+    error,
+    data: restaurants,
+    refetch,
+  } = useQuery({
     queryKey: ['restaurants'],
     queryFn: () =>
       axios
@@ -15,6 +21,7 @@ function Restaurants() {
         )
         .then((res) => res.data),
     enabled: false,
+    retry: false,
   });
   useEffect(() => {
     refetch();
@@ -26,15 +33,17 @@ function Restaurants() {
   return (
     <div className="restaurants">
       <div>Restaurants</div>
-      {data ? (
+      {restaurants ? (
         <ul>
-          {data.map((item) => (
-            <li key={item.id}>
-              <RestaurantCard restaurant={item} />
+          {restaurants.map((restaurant) => (
+            <li key={restaurant.id}>
+              <RestaurantCard restaurant={restaurant} />
             </li>
           ))}
         </ul>
-      ) : null}
+      ) : (
+        <Typography style={{ textAlign: 'center' }}>No Restaurants</Typography>
+      )}
     </div>
   );
 }
