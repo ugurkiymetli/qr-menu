@@ -1,6 +1,5 @@
 .main {
   text-align: center;
-  background-color: #8175a8;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,5 +12,4 @@
 }
 .main-link {
   cursor: pointer;
-  color: #75dbf7;
 }
