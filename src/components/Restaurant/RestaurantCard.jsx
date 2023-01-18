@@ -2,8 +2,8 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Grid,
   IconButton,
+  Paper,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -11,24 +11,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Phone, Place } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import './RestaurantCard.css';
 
 function RestaurantCard({ restaurant }) {
   const { menu, name, id, phone, address } = restaurant;
+
   return (
-    <Grid className="card-root">
+    <Paper
+      sx={{
+        backgroundColor: 'background.paper',
+        borderRadius: 4,
+        boxShadow: 2,
+        p: 2,
+      }}
+    >
       <CardMedia
         sx={{ height: 148, width: 148, margin: 'auto' }}
         image={menu}
       />
       <CardContent>
-        <Typography
-          variant="h5"
-          component="div"
-          style={{ textDecoration: 'underline', cursor: 'pointer' }}
-        >
-          <Link to={`/restaurants/${id}`}>{name}</Link>
-        </Typography>
+        <Link to={`/restaurants/${id}`}>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              color: 'text.primary',
+            }}
+          >
+            {name}
+          </Typography>
+        </Link>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           <a href="http://maps.google.com">{address}</a>
         </Typography>
@@ -56,7 +69,7 @@ function RestaurantCard({ restaurant }) {
           </IconButton>
         </Tooltip>
       </CardActions>
-    </Grid>
+    </Paper>
   );
 }
 RestaurantCard.propTypes = {
