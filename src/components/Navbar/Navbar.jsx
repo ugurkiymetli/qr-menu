@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,64 +12,60 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { QrCode2 } from '@mui/icons-material';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { NavLink } from 'react-router-dom';
-import './Navbar.css';
-
-const pages = [
-  { name: 'Restaurants', link: '/restaurants' },
-  { name: 'Menus', link: '/menus' },
-];
-const settings = [
-  { name: 'Profile', link: '/profile' },
-  { name: 'Account', link: '/account' },
-  { name: 'Dashboard', link: '/dashboard' },
-  { name: 'Logout', link: '/logout' },
-];
+import { AppThemeContext } from '../../utils/theme/AppThemeProvider';
+import { pages, settings } from './consts';
 
 function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { changeTheme, theme } = useContext(AppThemeContext);
+
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (e) => setAnchorElNav(e.currentTarget);
   const handleOpenUserMenu = (e) => setAnchorElUser(e.currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
+  const style = {
+    navlink: {
+      fontWeight: 'bold',
+      '&:hover': {
+        textDecoration: 'underline',
+        fontWeight: 'bolder',
+      },
+    },
+    displayMobile: {
+      display: { xs: 'flex', md: 'none' },
+    },
+    displayDesktop: {
+      display: { xs: 'none', md: 'flex' },
+    },
+  };
   return (
-    <AppBar position="static" className="navbar">
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: 'primary.main',
+        color: 'common.white',
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <QrCode2 sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <QrCode2 sx={[style.displayDesktop, { mr: 1 }]} />
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
+            sx={[{ mr: 2 }, style.displayDesktop, style.navlin]}
           >
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `navlink ${isActive ? ' activeLink' : ''}`
-              }
-            >
-              QR
-            </NavLink>
+            <NavLink to="/">QR</NavLink>
           </Typography>
-          <Box
-            className="mobile-menu"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
+          <Box sx={[{ flexGrow: 1 }, style.displayMobile]}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -97,66 +93,44 @@ function Navbar() {
             >
               {pages.map(({ name, link }) => (
                 <MenuItem key={name} onClick={handleCloseNavMenu}>
-                  <NavLink
-                    to={link}
-                    className={({ isActive }) =>
-                      `navlink ${isActive ? ' activeLink' : ''}`
-                    }
-                  >
-                    <Typography textAlign="center">{name}</Typography>
-                  </NavLink>
+                  <Typography textAlign="center" sx={style.navlink}>
+                    <NavLink to={link}>{name}</NavLink>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <QrCode2 sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <QrCode2 sx={[style.displayMobile, { mr: 1 }]} />
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
+            sx={[{ mr: 2, flexGrow: 1 }, style.displayMobile, style.navlink]}
           >
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `navlink ${isActive ? ' activeLink' : ''}`
-              }
-            >
-              QR
-            </NavLink>
+            <NavLink to="/">QR</NavLink>
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={[{ flexGrow: 1 }, style.displayDesktop]}>
             {pages.map(({ name, link }) => (
               <Button
                 key={name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                variant="link"
+                sx={style.navlink}
               >
-                <NavLink
-                  to={link}
-                  className={({ isActive }) =>
-                    `navlink ${isActive ? ' activeLink' : ''}`
-                  }
-                >
-                  {name}
-                </NavLink>
+                <NavLink to={link}>{name}</NavLink>
               </Button>
             ))}
           </Box>
-
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Switch Theme">
+              <IconButton onClick={() => changeTheme()} sx={{ pr: 2 }}>
+                {theme === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+              </IconButton>
+            </Tooltip>
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="U K" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Ugur Kiymetli" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -174,18 +148,12 @@ function Navbar() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-              className="menu"
             >
               {settings.map(({ name, link }) => (
                 <MenuItem key={name} onClick={handleCloseUserMenu}>
-                  <NavLink
-                    to={link}
-                    className={({ isActive }) =>
-                      `navlink ${isActive ? ' activeLink' : ''}`
-                    }
-                  >
-                    <Typography textAlign="center">{name}</Typography>
-                  </NavLink>
+                  <Typography textAlign="center" sx={style.navlink}>
+                    <NavLink to={link}>{name}</NavLink>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
