@@ -18,6 +18,8 @@ jobs:
 
       - name: Build
         run: CI=false npm run build
+        env:
+          REACT_APP_SECRET: ${{secrets.REACT_APP_SECRET}}
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop
