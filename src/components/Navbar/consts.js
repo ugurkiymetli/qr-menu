@@ -6,5 +6,5 @@ export const settings = [
   { name: 'Profile', link: '/profile' },
   { name: 'Account', link: '/account' },
   { name: 'Dashboard', link: '/dashboard' },
-  { name: 'Logout', link: '/logout' },
+  { name: 'Login', link: '/login' },
 ];
