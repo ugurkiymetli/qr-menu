@@ -7,8 +7,8 @@ import RestaurantCard from '../../components/Restaurant/RestaurantCard';
 import './Restaurants.css';
 
 function Restaurants() {
-  const API_ENDPOINT = process.env.REACT_APP_RESTAURANTS_ENDPOINT;
-  console.log({ API_ENDPOINT });
+  const API_ENDPOINT =
+    'https://f1902702-b102-4a4e-9672-1cc03fd64dbb.mock.pstmn.io/restaurants';
   const {
     isLoading,
     error,
