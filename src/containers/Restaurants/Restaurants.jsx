@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect } from 'react';
-import Loading from '../../components/Loading/Loading';
+import LoadingSkeleton from '../../components/Loading/LoadingSkeleton';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
 import './Restaurants.css';
 
@@ -16,9 +16,7 @@ function Restaurants() {
     queryKey: ['restaurants'],
     queryFn: () =>
       axios
-        .get(
-          'https://f1902702-b102-4a4e-9672-1cc03fd64dbb.mock.pstmn.io/restaurants'
-        )
+        .get(process.env.REACT_APP_RESTAURANTS_ENDPOINT)
         .then((res) => res.data),
     enabled: false,
     retry: false,
@@ -26,8 +24,8 @@ function Restaurants() {
   useEffect(() => {
     refetch();
   }, []);
+  if (isLoading) return <LoadingSkeleton />;
 
-  if (isLoading) return <Loading />;
   if (error) return `An error has occurred: ${error.message}`;
 
   return (
