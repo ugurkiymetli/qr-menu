@@ -7,6 +7,8 @@ import RestaurantCard from '../../components/Restaurant/RestaurantCard';
 import './Restaurants.css';
 
 function Restaurants() {
+  const API_ENDPOINT = process.env.REACT_APP_RESTAURANTS_ENDPOINT;
+  console.log({ API_ENDPOINT });
   const {
     isLoading,
     error,
@@ -14,10 +16,7 @@ function Restaurants() {
     refetch,
   } = useQuery({
     queryKey: ['restaurants'],
-    queryFn: () =>
-      axios
-        .get(process.env.REACT_APP_RESTAURANTS_ENDPOINT)
-        .then((res) => res.data),
+    queryFn: () => axios.get(API_ENDPOINT).then((res) => res.data),
     enabled: false,
     retry: false,
   });
