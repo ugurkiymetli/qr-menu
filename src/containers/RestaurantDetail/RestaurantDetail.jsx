@@ -1,3 +1,11 @@
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Grid,
+  Typography,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect } from 'react';
@@ -29,6 +37,34 @@ function RestaurantDetail() {
     <div className="detail">
       Restaurant Detail - {id}
       <p>{data ? <RestaurantCard restaurant={data} /> : null}</p>
+      {data?.website ? (
+        <Grid
+          sx={{
+            marginTop: 2,
+            marginBottom: 2,
+            width: '100%',
+          }}
+        >
+          <Accordion sx={{ width: '100%' }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="website"
+              id="website-accordion"
+            >
+              <Typography>Website</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div>
+                <iframe
+                  className="iframe"
+                  title="Restaurant Web Site"
+                  src={data?.website}
+                />
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        </Grid>
+      ) : null}
     </div>
   );
 }

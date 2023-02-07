@@ -11,10 +11,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Phone, Place } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
 function RestaurantCard({ restaurant }) {
-  const { menu, name, id, phone, address } = restaurant;
-
+  const { menu, name, id, phone, address, addressLink, website } = restaurant;
   return (
     <Paper
       sx={{
@@ -43,31 +43,48 @@ function RestaurantCard({ restaurant }) {
           </Typography>
         </Link>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          <a href="http://maps.google.com">{address}</a>
+          <a href={addressLink} target="_blank" rel="noopener noreferrer">
+            {address}
+          </a>
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <a href={`tel:+${phone}`}>{phone}</a>
         </Typography>
       </CardContent>
       <CardActions>
-        <Tooltip title="Call!">
-          <IconButton>
-            <Typography>
-              <a href={`tel:+${phone}`}>
-                <Phone />
-              </a>
-            </Typography>{' '}
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Get directions!">
-          <IconButton>
-            <Typography variant="body2">
-              <a href="http://maps.google.com">
-                <Place />
-              </a>
-            </Typography>
-          </IconButton>
-        </Tooltip>
+        {phone ? (
+          <Tooltip title="Call!">
+            <IconButton>
+              <Typography>
+                <a href={`tel:+${phone}`}>
+                  <Phone />
+                </a>
+              </Typography>{' '}
+            </IconButton>
+          </Tooltip>
+        ) : null}
+        {addressLink ? (
+          <Tooltip title="Get directions!">
+            <IconButton>
+              <Typography variant="body2">
+                <a href={addressLink} target="_blank" rel="noopener noreferrer">
+                  <Place />
+                </a>
+              </Typography>
+            </IconButton>
+          </Tooltip>
+        ) : null}
+        {website ? (
+          <Tooltip title="Website!">
+            <IconButton>
+              <Typography variant="body2">
+                <a href={website} target="_blank" rel="noopener noreferrer">
+                  <RestaurantMenuIcon />
+                </a>
+              </Typography>
+            </IconButton>
+          </Tooltip>
+        ) : null}
       </CardActions>
     </Paper>
   );
@@ -79,6 +96,8 @@ RestaurantCard.propTypes = {
     menu: PropTypes.string,
     phone: PropTypes.string,
     name: PropTypes.string,
+    addressLink: PropTypes.string,
+    website: PropTypes.string,
   }),
 };
 RestaurantCard.defaultProps = {
@@ -88,6 +107,8 @@ RestaurantCard.defaultProps = {
     menu: 'menu',
     phone: 'phone',
     name: 'name',
+    addressLink: 'addressLink',
+    website: 'website',
   },
 };
 export default RestaurantCard;
