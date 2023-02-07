@@ -25,7 +25,12 @@ function RestaurantCard({ restaurant }) {
       }}
     >
       <CardMedia
-        sx={{ height: 148, width: 148, margin: 'auto' }}
+        sx={{
+          height: 148,
+          width: 148,
+          margin: 'auto',
+          backgroundSize: 'contain',
+        }}
         image={menu}
       />
       <CardContent>
