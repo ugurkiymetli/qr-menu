@@ -11,9 +11,14 @@ import { useForm } from 'react-hook-form';
 import KeyIcon from '@mui/icons-material/Key';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 function Login() {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
+  const { register, handleSubmit } = useForm<FormData>();
+  const onSubmit = (data: FormData) => {
     console.log(data);
   };
   const styles = {
@@ -40,7 +45,6 @@ function Login() {
             required
             fullWidth
             id="email"
-            name="email"
             autoComplete="email"
             InputProps={{
               startAdornment: (
@@ -58,7 +62,6 @@ function Login() {
             margin="normal"
             required
             fullWidth
-            name="password"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -87,4 +90,5 @@ function Login() {
     </Grid>
   );
 }
+
 export default Login;

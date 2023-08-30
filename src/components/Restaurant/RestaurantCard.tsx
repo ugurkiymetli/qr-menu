@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import {
   CardActions,
   CardContent,
@@ -8,12 +9,17 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Phone, Place } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import { Restaurant } from '../../utils/types/restaurant';
 
-function RestaurantCard({ restaurant }) {
+interface RestaurantCardProps {
+  restaurant: Restaurant;
+}
+const RestaurantCard: React.FC<RestaurantCardProps> = ({
+  restaurant,
+}): JSX.Element => {
   const { menu, name, id, phone, address, addressLink, website } = restaurant;
   return (
     <Paper
@@ -93,27 +99,6 @@ function RestaurantCard({ restaurant }) {
       </CardActions>
     </Paper>
   );
-}
-RestaurantCard.propTypes = {
-  restaurant: PropTypes.shape({
-    id: PropTypes.number,
-    address: PropTypes.string,
-    menu: PropTypes.string,
-    phone: PropTypes.string,
-    name: PropTypes.string,
-    addressLink: PropTypes.string,
-    website: PropTypes.string,
-  }),
 };
-RestaurantCard.defaultProps = {
-  restaurant: {
-    id: -1,
-    address: 'address',
-    menu: 'menu',
-    phone: 'phone',
-    name: 'name',
-    addressLink: 'addressLink',
-    website: 'website',
-  },
-};
+
 export default RestaurantCard;

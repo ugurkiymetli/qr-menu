@@ -33,7 +33,7 @@ function SkeletonX() {
         <Grid container>
           <Grid item xs={6}>
             <Typography>
-              <Skeleton width="50%" ml="auto" />
+              <Skeleton />
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -42,7 +42,7 @@ function SkeletonX() {
               color="text.secondary"
               gutterBottom
             >
-              <Skeleton width="50%" ml="auto" />
+              <Skeleton />
             </Typography>
           </Grid>
         </Grid>
@@ -51,7 +51,7 @@ function SkeletonX() {
   );
 }
 
-function LoadingSkeleton() {
+function LoadingSkeleton(): JSX.Element {
   return (
     <ul>
       <li>

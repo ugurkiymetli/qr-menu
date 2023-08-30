@@ -9,14 +9,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
 import './RestaurantDetail.css';
+import { Restaurant } from '../../utils/types/restaurant';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function RestaurantDetail() {
-  const { id } = useParams();
-  const { data, error, isLoading, refetch } = useQuery({
+  const { id } = useParams<{ id: string }>();
+  const { data, error, isLoading, refetch } = useQuery<Restaurant>({
     queryKey: ['restaurantDetail', id],
     queryFn: () =>
       axios
@@ -31,7 +33,7 @@ function RestaurantDetail() {
   }, [id]);
 
   if (isLoading) return <Loading />;
-  if (error) return `An error has occurred: ${error.message}`;
+  if (error) return <ErrorPage error={error} />;
 
   return (
     <div className="detail">
@@ -58,7 +60,7 @@ function RestaurantDetail() {
                 <iframe
                   className="iframe"
                   title="Restaurant Web Site"
-                  src={data?.website}
+                  src={data.website}
                 />
               </div>
             </AccordionDetails>

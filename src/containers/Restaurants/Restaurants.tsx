@@ -5,6 +5,8 @@ import React, { useEffect } from 'react';
 import LoadingSkeleton from '../../components/Loading/LoadingSkeleton';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
 import './Restaurants.css';
+import { Restaurant } from '../../utils/types/restaurant';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function Restaurants() {
   const API_ENDPOINT =
@@ -14,7 +16,7 @@ function Restaurants() {
     error,
     data: restaurants,
     refetch,
-  } = useQuery({
+  } = useQuery<Restaurant[]>({
     queryKey: ['restaurants'],
     queryFn: () => axios.get(API_ENDPOINT).then((res) => res.data),
     enabled: false,
@@ -23,9 +25,10 @@ function Restaurants() {
   useEffect(() => {
     refetch();
   }, []);
+
   if (isLoading) return <LoadingSkeleton />;
 
-  if (error) return `An error has occurred: ${error.message}`;
+  if (error) return <ErrorPage error={error} />;
 
   return (
     <div className="restaurants">
@@ -39,7 +42,7 @@ function Restaurants() {
           ))}
         </ul>
       ) : (
-        <Typography style={{ textAlign: 'center' }}>No Restaurants</Typography>
+        <Typography sx={{ textAlign: 'center' }}>No Restaurants</Typography>
       )}
     </div>
   );

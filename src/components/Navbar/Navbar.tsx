@@ -1,36 +1,52 @@
 import React, { useContext, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import { QrCode2 } from '@mui/icons-material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from 'react-router-dom';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { AppThemeContext } from '../../utils/theme/AppThemeProvider';
-import { pages, settings } from './consts';
 
+const navbarConfig = {
+  pages: [
+    { name: 'Restaurants', link: '/restaurants' },
+    { name: 'Menus', link: '/menus' },
+  ],
+  settings: [
+    { name: 'Profile', link: '/profile' },
+    { name: 'Account', link: '/account' },
+    { name: 'Dashboard', link: '/dashboard' },
+    { name: 'Login', link: '/login' },
+  ],
+};
 function Navbar() {
   const { changeTheme, theme } = useContext(AppThemeContext);
 
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenNavMenu = (e) => setAnchorElNav(e.currentTarget);
-  const handleOpenUserMenu = (e) => setAnchorElUser(e.currentTarget);
+  const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) =>
+    setAnchorElNav(e.currentTarget);
+  const handleOpenUserMenu = (e: React.MouseEvent<HTMLElement>) =>
+    setAnchorElUser(e.currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
   const style = {
     navlink: {
+      color: 'white',
       fontWeight: 'bold',
       '&:hover': {
         textDecoration: 'underline',
@@ -44,6 +60,7 @@ function Navbar() {
       display: { xs: 'none', md: 'flex' },
     },
   };
+
   return (
     <AppBar
       position="static"
@@ -58,7 +75,7 @@ function Navbar() {
           <Typography
             variant="h6"
             noWrap
-            sx={[{ mr: 2 }, style.displayDesktop, style.navlin]}
+            sx={[{ mr: 2 }, style.displayDesktop, style.navlink]}
           >
             <NavLink to="/">QR</NavLink>
           </Typography>
@@ -91,7 +108,7 @@ function Navbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map(({ name, link }) => (
+              {navbarConfig.pages.map(({ name, link }) => (
                 <MenuItem key={name} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" sx={style.navlink}>
                     <NavLink to={link}>{name}</NavLink>
@@ -109,11 +126,11 @@ function Navbar() {
             <NavLink to="/">QR</NavLink>
           </Typography>
           <Box sx={[{ flexGrow: 1 }, style.displayDesktop]}>
-            {pages.map(({ name, link }) => (
+            {navbarConfig.pages.map(({ name, link }) => (
               <Button
                 key={name}
                 onClick={handleCloseNavMenu}
-                variant="link"
+                variant="outlined"
                 sx={style.navlink}
               >
                 <NavLink to={link}>{name}</NavLink>
@@ -149,7 +166,7 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map(({ name, link }) => (
+              {navbarConfig.settings.map(({ name, link }) => (
                 <MenuItem key={name} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" sx={style.navlink}>
                     <NavLink to={link}>{name}</NavLink>
@@ -163,4 +180,5 @@ function Navbar() {
     </AppBar>
   );
 }
+
 export default Navbar;

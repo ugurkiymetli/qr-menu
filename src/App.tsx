@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import { Grid } from '@mui/material';
 import React from 'react';
-import { Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router-dom'; // Update import path for react-router-dom
 import Navbar from './components/Navbar/Navbar';
 import routes from './utils/routes';
 

@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function NotFoundPage() {
+function ErrorPage({ error }: { error: any }) {
   return (
     <div
       style={{
@@ -15,7 +15,7 @@ function NotFoundPage() {
       }}
     >
       <Typography variant="h4">Error!</Typography>
-      <p>Page Not Found!</p>
+      <p>{(error as Error).message}</p>
       <Button
         variant="contained"
         style={{ backgroundColor: '#ecf0f1', color: '#34495e' }}
@@ -26,4 +26,4 @@ function NotFoundPage() {
   );
 }
 
-export default NotFoundPage;
+export default ErrorPage;

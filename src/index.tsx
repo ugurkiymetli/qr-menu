@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import './reset.css';
 import { HashRouter } from 'react-router-dom';
@@ -12,8 +11,8 @@ import { AppThemeProvider } from './utils/theme/AppThemeProvider';
 
 const queryClient = new QueryClient();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+// eslint-disable-next-line react/no-deprecated
+ReactDOM.render(
   <HashRouter>
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
@@ -21,5 +20,6 @@ root.render(
       </AppThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  </HashRouter>
+  </HashRouter>,
+  document.getElementById('root')
 );

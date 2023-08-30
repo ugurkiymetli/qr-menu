@@ -14,8 +14,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.4",
+    "@types/node": "^20.5.7",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
     "axios": "^1.2.2",
     "classnames": "^2.3.2",
+    "eslint-config-airbnb-typescript": "^17.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -31,7 +36,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint-staged": "lint-staged",
+    "eslint": "eslint --ext .tsx,.ts --fix ./src -c .eslintrc.js"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +68,7 @@
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
     "gh-pages": "^4.0.0",
-    "prettier": "2.8.1"
+    "prettier": "2.8.1",
+    "typescript": "^5.1.6"
   }
 }

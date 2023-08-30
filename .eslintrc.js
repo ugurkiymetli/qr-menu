@@ -4,15 +4,31 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
     'airbnb',
+    'airbnb-typescript',
     'plugin:prettier/recommended',
+    'prettier',
   ],
-  overrides: [],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest',
+    ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react'],
-  rules: {},
+  plugins: ['react', '@typescript-eslint'],
+  rules: {
+    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'import/no-unresolved': 'off',
+    '@typescript-eslint/dot-notation': 'error',
+  },
 };

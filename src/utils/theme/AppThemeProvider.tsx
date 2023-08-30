@@ -1,13 +1,48 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */
-import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
+import {
+  createTheme,
+  ThemeProvider,
+  CssBaseline,
+  PaletteMode,
+} from '@mui/material';
 import * as colors from '@mui/material/colors';
 
 import React, { createContext, useState } from 'react';
 
-const AppThemeContext = createContext({ changeTheme: () => {} });
+interface AppThemeContextType {
+  theme: PaletteMode;
+  changeTheme: () => void;
+}
 
-const getDesignTokens = (mode) => ({
+const AppThemeContext = createContext<AppThemeContextType>({
+  theme: 'dark',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  changeTheme: () => {},
+});
+
+interface DesignTokens {
+  palette: {
+    mode: PaletteMode;
+    primary: { main: string };
+    secondary: { main: string };
+    divider: string;
+    common: {
+      white: string;
+    };
+    text: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+    };
+    background: {
+      default: string;
+      paper: string;
+    };
+  };
+}
+
+const getDesignTokens = (mode: PaletteMode): DesignTokens => ({
   palette: {
     mode,
     ...(mode === 'light'
@@ -49,8 +84,11 @@ const getDesignTokens = (mode) => ({
         }),
   },
 });
-function AppThemeProvider({ children }) {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+function AppThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<PaletteMode>(
+    (localStorage.getItem('theme') as PaletteMode) || 'dark'
+  );
 
   const myTheme = createTheme(getDesignTokens(theme));
 
@@ -64,7 +102,7 @@ function AppThemeProvider({ children }) {
     }
   };
 
-  const values = { theme, changeTheme };
+  const values: AppThemeContextType = { theme, changeTheme };
   return (
     <AppThemeContext.Provider value={values}>
       <ThemeProvider theme={myTheme}>
