@@ -11,7 +11,6 @@ import { AppThemeProvider } from './utils/theme/AppThemeProvider';
 
 const queryClient = new QueryClient();
 
-// eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
   <HashRouter>
     <QueryClientProvider client={queryClient}>
