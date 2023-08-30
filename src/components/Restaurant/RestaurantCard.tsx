@@ -1,4 +1,3 @@
-/* eslint-disable react/function-component-definition */
 import {
   CardActions,
   CardContent,

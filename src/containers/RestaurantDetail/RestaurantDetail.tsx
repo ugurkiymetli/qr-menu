@@ -25,11 +25,12 @@ function RestaurantDetail() {
         .get(
           `https://f1902702-b102-4a4e-9672-1cc03fd64dbb.mock.pstmn.io/restaurants/${id}`
         )
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         .then((res) => res.data),
   });
 
   useEffect(() => {
-    refetch();
+    void refetch();
   }, [id]);
 
   if (isLoading) return <Loading />;

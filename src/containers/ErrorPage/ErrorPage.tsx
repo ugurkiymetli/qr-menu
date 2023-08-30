@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function ErrorPage({ error }: { error: any }) {
+function ErrorPage({ error }: { error: unknown }) {
   return (
     <div
       style={{

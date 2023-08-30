@@ -18,12 +18,13 @@ function Restaurants() {
     refetch,
   } = useQuery<Restaurant[]>({
     queryKey: ['restaurants'],
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     queryFn: () => axios.get(API_ENDPOINT).then((res) => res.data),
     enabled: false,
     retry: false,
   });
   useEffect(() => {
-    refetch();
+    void refetch();
   }, []);
 
   if (isLoading) return <LoadingSkeleton />;

@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/jsx-filename-extension */
 import Login from '../containers/Auth/Login';
 import Main from '../containers/Main/Main';
 import Menus from '../containers/Menus/Menus';

@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   Button,
   Grid,
@@ -6,7 +6,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import KeyIcon from '@mui/icons-material/Key';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
