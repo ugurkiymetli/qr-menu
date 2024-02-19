@@ -1,12 +1,16 @@
 import { Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import LoadingSkeleton from '../../components/Loading/LoadingSkeleton';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
-import './Restaurants.css';
-import { Restaurant } from '../../utils/types/restaurant';
+import restaurant from '../../utils/api';
+import {
+  Restaurant,
+  RestaurantDatabaseModel,
+} from '../../utils/types/restaurant';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import './Restaurants.css';
 
 function Restaurants() {
   const API_ENDPOINT =
@@ -26,6 +30,14 @@ function Restaurants() {
   useEffect(() => {
     void refetch();
   }, []);
+
+  const testQuery = useQuery<RestaurantDatabaseModel[]>({
+    queryKey: ['test-restaurants'],
+    queryFn: () => restaurant.getAllRestaurants(),
+    retry: false,
+  });
+
+  console.log(testQuery.data);
 
   if (isLoading) return <LoadingSkeleton />;
 
