@@ -6,4 +6,16 @@ export interface Restaurant {
   name: string;
   addressLink: string;
   website: string;
+  imageLink: string;
+  description: string;
+}
+
+export interface RestaurantForm {
+  name: string;
+  addressLink: string;
+  menuLink: string;
+  address?: string;
+  phone?: string;
+  website?: string;
+  imageLink?: string;
 }

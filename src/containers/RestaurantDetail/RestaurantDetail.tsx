@@ -1,3 +1,4 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionDetails,
@@ -5,28 +6,24 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
-import './RestaurantDetail.css';
+import { restaurant } from '../../utils/api';
 import { Restaurant } from '../../utils/types/restaurant';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import './RestaurantDetail.css';
 
 function RestaurantDetail() {
   const { id } = useParams<{ id: string }>();
+
+  if (id === undefined) return <ErrorPage error={'not found!'} />;
+
   const { data, error, isLoading, refetch } = useQuery<Restaurant>({
     queryKey: ['restaurantDetail', id],
-    queryFn: () =>
-      axios
-        .get(
-          `https://f1902702-b102-4a4e-9672-1cc03fd64dbb.mock.pstmn.io/restaurants/${id}`
-        )
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        .then((res) => res.data),
+    queryFn: () => restaurant.getRestaurantById(id),
   });
 
   useEffect(() => {
@@ -38,7 +35,7 @@ function RestaurantDetail() {
 
   return (
     <div className="detail">
-      Restaurant Detail - {id}
+      Restaurant Detail
       <p>{data ? <RestaurantCard restaurant={data} /> : null}</p>
       {data?.website ? (
         <Grid

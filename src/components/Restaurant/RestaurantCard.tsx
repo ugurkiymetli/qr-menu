@@ -1,3 +1,5 @@
+import { Phone, Place } from '@mui/icons-material';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import {
   CardActions,
   CardContent,
@@ -8,9 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { Phone, Place } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import { Restaurant } from '../../utils/types/restaurant';
 
 interface RestaurantCardProps {
@@ -19,7 +19,8 @@ interface RestaurantCardProps {
 const RestaurantCard: React.FC<RestaurantCardProps> = ({
   restaurant,
 }): JSX.Element => {
-  const { menu, name, id, phone, address, addressLink, website } = restaurant;
+  const { name, id, phone, address, addressLink, website, imageLink } =
+    restaurant;
   return (
     <Paper
       sx={{
@@ -36,7 +37,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
           margin: 'auto',
           backgroundSize: 'contain',
         }}
-        image={menu}
+        image={imageLink}
       />
       <CardContent>
         <Link to={`/restaurants/${id}`}>
@@ -52,11 +53,13 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
             {name}
           </Typography>
         </Link>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          <a href={addressLink} target="_blank" rel="noopener noreferrer">
-            {address}
-          </a>
-        </Typography>
+        {address ? (
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <a href={addressLink} target="_blank" rel="noopener noreferrer">
+              {address}
+            </a>
+          </Typography>
+        ) : null}
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <a href={`tel:+${phone}`}>{phone}</a>
         </Typography>

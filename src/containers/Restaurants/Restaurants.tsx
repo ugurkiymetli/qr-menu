@@ -1,16 +1,19 @@
-import { Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { IconButton, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import LoadingSkeleton from '../../components/Loading/LoadingSkeleton';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
-import './Restaurants.css';
+import { useAuth } from '../../context/AuthProvider';
+import { restaurant } from '../../utils/api';
 import { Restaurant } from '../../utils/types/restaurant';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import './Restaurants.css';
 
 function Restaurants() {
-  const API_ENDPOINT =
-    'https://f1902702-b102-4a4e-9672-1cc03fd64dbb.mock.pstmn.io/restaurants';
+  const { isAuthenticated } = useAuth();
+
   const {
     isLoading,
     error,
@@ -19,7 +22,7 @@ function Restaurants() {
   } = useQuery<Restaurant[]>({
     queryKey: ['restaurants'],
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    queryFn: () => axios.get(API_ENDPOINT).then((res) => res.data),
+    queryFn: () => restaurant.getAllRestaurants(),
     enabled: false,
     retry: false,
   });
@@ -33,7 +36,16 @@ function Restaurants() {
 
   return (
     <div className="restaurants">
-      <div>Restaurants</div>
+      <div>
+        Restaurants{' '}
+        {isAuthenticated() ? (
+          <IconButton aria-label="add">
+            <Link to={`/restaurants/add`}>
+              <AddIcon />
+            </Link>
+          </IconButton>
+        ) : null}
+      </div>
       {restaurants ? (
         <ul>
           {restaurants.map((restaurant) => (
