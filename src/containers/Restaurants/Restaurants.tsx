@@ -5,12 +5,15 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LoadingSkeleton from '../../components/Loading/LoadingSkeleton';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
-import restaurant from '../../utils/api';
+import { useAuth } from '../../context/AuthProvider';
+import { restaurant } from '../../utils/api';
 import { Restaurant } from '../../utils/types/restaurant';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import './Restaurants.css';
 
 function Restaurants() {
+  const { isAuthenticated } = useAuth();
+
   const {
     isLoading,
     error,
@@ -35,11 +38,13 @@ function Restaurants() {
     <div className="restaurants">
       <div>
         Restaurants{' '}
-        <IconButton aria-label="delete">
-          <Link to={`/restaurants/add`}>
-            <AddIcon />
-          </Link>
-        </IconButton>
+        {isAuthenticated() ? (
+          <IconButton aria-label="add">
+            <Link to={`/restaurants/add`}>
+              <AddIcon />
+            </Link>
+          </IconButton>
+        ) : null}
       </div>
       {restaurants ? (
         <ul>

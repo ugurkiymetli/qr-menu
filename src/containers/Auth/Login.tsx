@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import KeyIcon from '@mui/icons-material/Key';
+import PersonIcon from '@mui/icons-material/Person';
 import {
   Button,
   Grid,
@@ -6,19 +8,19 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import KeyIcon from '@mui/icons-material/Key';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-
-interface FormData {
-  email: string;
-  password: string;
-}
+import { useAuth } from '../../context/AuthProvider';
+import { auth } from '../../utils/api';
+import { LoginRequest } from '../../utils/types/auth';
 
 function Login() {
-  const { register, handleSubmit } = useForm<FormData>();
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const { login } = useAuth();
+  const loginMutation = useMutation(auth.login);
+  const { register, handleSubmit } = useForm<LoginRequest>();
+  const onSubmit = async (data: LoginRequest) => {
+    const response = await loginMutation.mutateAsync(data);
+    login(response.authToken.token);
   };
   const styles = {
     root: { marginTop: 'auto' },
@@ -43,16 +45,16 @@ function Login() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            autoComplete="email"
+            id="username"
+            autoComplete="username"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <AlternateEmailIcon />
+                  <PersonIcon />
                 </InputAdornment>
               ),
             }}
-            {...register('email')}
+            {...register('username')}
             autoFocus
           />
         </Grid>

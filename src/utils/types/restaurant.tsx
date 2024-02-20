@@ -17,4 +17,5 @@ export interface RestaurantForm {
   address?: string;
   phone?: string;
   website?: string;
+  imageLink?: string;
 }

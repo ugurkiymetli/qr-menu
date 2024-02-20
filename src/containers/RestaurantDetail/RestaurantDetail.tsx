@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import RestaurantCard from '../../components/Restaurant/RestaurantCard';
-import restaurant from '../../utils/api';
+import { restaurant } from '../../utils/api';
 import { Restaurant } from '../../utils/types/restaurant';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import './RestaurantDetail.css';
