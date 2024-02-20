@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import axios, { AxiosResponse } from 'axios';
-import { RestaurantDatabaseModel, RestaurantInsert } from './types/restaurant';
+import { Restaurant, RestaurantForm } from './types/restaurant';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
-
-console.log({ baseURL });
 
 const axiosInstance = axios.create({
   baseURL,
@@ -13,18 +11,16 @@ const axiosInstance = axios.create({
 const handleResponseData = <T,>(response: AxiosResponse<T>) => response.data;
 
 const restaurant = {
-  getAllRestaurants: (): Promise<RestaurantDatabaseModel[]> =>
+  getAllRestaurants: (): Promise<Restaurant[]> =>
     axiosInstance.get('/Restaurant').then(handleResponseData),
-  addRestaurant: (
-    restaurantData: RestaurantInsert
-  ): Promise<RestaurantDatabaseModel> =>
+  addRestaurant: (restaurantData: RestaurantForm): Promise<Restaurant> =>
     axiosInstance.post('/Restaurant', restaurantData).then(handleResponseData),
-  getRestaurantById: (id: string): Promise<RestaurantDatabaseModel> =>
+  getRestaurantById: (id: string): Promise<Restaurant> =>
     axiosInstance.get(`/Restaurant/${id}`).then(handleResponseData),
   updateRestaurant: (
     id: string,
-    restaurantData: RestaurantDatabaseModel
-  ): Promise<RestaurantDatabaseModel> =>
+    restaurantData: Restaurant
+  ): Promise<Restaurant> =>
     axiosInstance
       .put(`/Restaurant/${id}`, restaurantData)
       .then(handleResponseData),

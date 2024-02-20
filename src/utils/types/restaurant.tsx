@@ -6,23 +6,15 @@ export interface Restaurant {
   name: string;
   addressLink: string;
   website: string;
-}
-export interface RestaurantDatabaseModel {
-  id?: string | null;
-  name?: string | null;
-  phoneNumber?: string | null;
-  phoneNumber2?: string | null;
-  website?: string | null;
-  address?: string | null;
-  menuLink?: string | null;
-  socialLink?: string | null;
-  socialLink2?: string | null;
-  description?: string | null;
-  createTime: string;
+  imageLink: string;
+  description: string;
 }
 
-export interface RestaurantInsert {
+export interface RestaurantForm {
   name: string;
-  website: string;
+  addressLink: string;
   menuLink: string;
+  address?: string;
+  phone?: string;
+  website?: string;
 }
